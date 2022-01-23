@@ -7,14 +7,16 @@ const addInput = document.querySelector('#input'),
     todoItems = todoList.querySelectorAll('.todo-item');
 
 // Создаём новый пустой массив для заметок. Если массив уже лежит в localStorage, то берём его оттуда
-const todos = localStorage.getItem('listItem') ? JSON.parse(localStorage.getItem('listItem')) : [];
-const todosCheked = localStorage.getItem('listItemCheked') ? JSON.parse(localStorage.getItem('listItemCheked')) : [];
+const todoArr = localStorage.getItem('listItem') ? JSON.parse(localStorage.getItem('listItem')) : [];
+const todoArrCheked = localStorage.getItem('listItemCheked') ? JSON.parse(localStorage.getItem('listItemCheked')) : [];
 
-// Функция рендера заметок из массива в localStorage
+// Функция рендера заметок из массивов в localStorage
 function itemRender() {
-    const todosParsed = JSON.parse(localStorage.getItem('listItem'));
+    const todoArrParsed = JSON.parse(localStorage.getItem('listItem'));
+    const todoArrChekedParsed = JSON.parse(localStorage.getItem('listItemCheked'));
     todoList.innerHTML = '';
-    todosParsed.forEach((item, index) => {
+    todoListCheked.innerHTML = '';
+    todoArrParsed.forEach((item, index) => {
         const elem = document.createElement('div');
         elem.classList.add('todo-item');
         elem.innerHTML = `
@@ -24,63 +26,8 @@ function itemRender() {
         elem.setAttribute('data-item-id', index);
         todoList.appendChild(elem);
     });
-}
 
-// Функция отправляет текущий массив в localStorage
-function toLocalStorage() {
-    const serializedTodos = JSON.stringify(todos);
-    localStorage.setItem('listItem', serializedTodos);
-}
-
-
-// Функция добавляет в текущий массив значение из инпута, а так же отправляет его в localStorage и рендерит
-function addNewTodoItem() {
-    addBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (addInput.value !== '') {
-            todos[todos.length] = addInput.value;
-            addInput.value = '';
-            toLocalStorage();
-            itemRender();   
-        }
-    });
-    
-}
-
-// Функция удаляет елемент по клику на кнопку, а так же отправляет массив в localStorage и рендерит
-function removeTodoItem() {
-    todoList.addEventListener('click', (e) => {
-        const target = e.target;
-        if (target.tagName === 'BUTTON') {
-            todos.splice(target.parentNode.getAttribute('data-item-id'), 1);
-            toLocalStorage();
-            itemRender();
-        }
-    });
-}
-
-// Функция удаляет елемент по клику на кнопку, а так же отправляет массив в localStorage и рендерит
-function removeTodoItemCheked() {
-    todoListCheked.addEventListener('click', (e) => {
-        const target = e.target;
-        if (target.tagName === 'BUTTON') {
-            todosCheked.splice(target.parentNode.getAttribute('data-item-cheked-id'), 1);
-            toLocalStorageCheked();
-            itemRenderCheked();
-        }
-    });
-}
-
-function toLocalStorageCheked() {
-    const serializedTodosCheked = JSON.stringify(todosCheked);
-    localStorage.setItem('listItemCheked', serializedTodosCheked);
-}
-
-// Функция рендера заметок из массива в localStorage
-function itemRenderCheked() {
-    const todosParsedCheked = JSON.parse(localStorage.getItem('listItemCheked'));
-    todoListCheked.innerHTML = '';
-    todosParsedCheked.forEach((item, index) => {
+    todoArrChekedParsed.forEach((item, index) => {
         const elem = document.createElement('div');
         elem.classList.add('todo-item', 'todo-item-cheked');
         elem.innerHTML = `
@@ -92,37 +39,86 @@ function itemRenderCheked() {
     });
 }
 
-function addToChekedList(){
+// Функция отправляет текущий массив в localStorage
+function toLocalStorage() {
+    const serializedTodos = JSON.stringify(todoArr);
+    localStorage.setItem('listItem', serializedTodos);
+
+    const serializedTodosCheked = JSON.stringify(todoArrCheked);
+    localStorage.setItem('listItemCheked', serializedTodosCheked);
+}
+
+
+// Функция добавляет в текущий массив значение из инпута, а так же отправляет его в localStorage и рендерит
+function addNewTodoItem() {
+    addBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (addInput.value !== '') {
+            todoArr[todoArr.length] = addInput.value;
+            addInput.value = '';
+            toLocalStorage();
+            itemRender();
+        }
+    });
+
+}
+
+// Функция удаляет елемент по клику на кнопку, а так же отправляет массив в localStorage и рендерит
+function removeTodoItem() {
+    todoList.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.tagName === 'BUTTON') {
+            todoArr.splice(target.parentNode.getAttribute('data-item-id'), 1);
+            toLocalStorage();
+            itemRender();
+        }
+    });
+
+    todoListCheked.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.tagName === 'BUTTON') {
+            todoArrCheked.splice(target.parentNode.getAttribute('data-item-cheked-id'), 1);
+            toLocalStorage();
+            itemRender();
+        }
+    });
+}
+
+// Функция переносит айтемы в состояние cheked и возвращает
+function addToChekedList() {
     todoList.addEventListener('click', (e) => {
         e.preventDefault();
         const target = e.target;
 
-        if (target.tagName === 'P') {
-
-
-            todosCheked[todosCheked.length] = target.textContent;
-
-            toLocalStorageCheked();
-            itemRenderCheked();
-            todos.splice(target.parentNode.getAttribute('data-item-id'), 1);
+        if (target.tagName !== 'BUTTON') {
+            todoArrCheked[todoArrCheked.length] = target.textContent;
+            todoArr.splice(target.parentNode.getAttribute('data-item-id'), 1);
             toLocalStorage();
-
             itemRender();
-
         }
+    });
 
-        
+    todoListCheked.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = e.target;
+
+        if (target.tagName !== 'BUTTON') {
+            todoArr[todoArr.length] = target.textContent;
+            todoArrCheked.splice(target.parentNode.getAttribute('data-item-id'), 1);
+            toLocalStorage();
+            itemRender();
+        }
     });
 }
 
 
 // Инициализируем функции при загрузке страницы
-toLocalStorage();
-itemRender();
-addNewTodoItem();
-removeTodoItem();
+function init() {
+    toLocalStorage();
+    itemRender();
+    addNewTodoItem();
+    removeTodoItem();
+    addToChekedList();
+}
 
-toLocalStorageCheked();
-itemRenderCheked();
-addToChekedList();
-removeTodoItemCheked();
+init();
