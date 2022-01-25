@@ -102,9 +102,9 @@ function addToCheckedList() {
         e.preventDefault();
         const target = e.target;
 
-        if (target.tagName !== 'BUTTON') {
+        if (target.tagName === 'P') {
             todoArr[todoArr.length] = target.textContent;
-            todoArrChecked.splice(target.parentNode.getAttribute('data-item-id'), 1);
+            todoArrChecked.splice(target.parentNode.getAttribute('data-item-checked-id'), 1);
             toLocalStorage();
             itemRender();
         }

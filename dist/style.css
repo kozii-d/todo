@@ -12,6 +12,8 @@ body {
 .todo {
   display: flex;
   justify-content: center;
+  padding-left: 45px;
+  padding-right: 45px;
 }
 
 .todo-wrap {
@@ -51,7 +53,7 @@ body {
 .todo-item__text {
   font-size: 1.2rem;
   color: #48808f;
-  width: 400px;
+  width: 90%;
   overflow: hidden;
   cursor: pointer;
 }
