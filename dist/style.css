@@ -111,3 +111,25 @@ body {
 .todo-form__add-btn:hover {
   background-color: #426072;
 }
+
+.todo-btn-reset {
+  font-size: 1.4rem;
+  color: white;
+  background-color: #2f4552;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.todo-btn-reset__text {
+  margin: 0;
+}
+.todo-btn-reset__x {
+  margin-left: 10px;
+  font-size: 2.3rem;
+}
+.todo-btn-reset:hover {
+  background-color: #426072;
+}

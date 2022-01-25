@@ -1,14 +1,15 @@
 'use strict';
 
 const addInput = document.querySelector('#input'),
-    addBtn = document.querySelector('#btn'),
+    addBtn = document.querySelector('#add-btn'),
     todoList = document.querySelector('#todo-list'),
-    todoListChecked = document.querySelector('#todo-list-checked');
-    // todoItems = todoList.querySelectorAll('.todo-item');
+    todoListChecked = document.querySelector('#todo-list-checked'),
+    resetBtn = document.querySelector('#reset-btn');
+
 
 // Создаём новый пустой массив для заметок. Если массив уже лежит в localStorage, то берём его оттуда
-const todoArr = localStorage.getItem('listItem') ? JSON.parse(localStorage.getItem('listItem')) : [];
-const todoArrChecked = localStorage.getItem('listItemChecked') ? JSON.parse(localStorage.getItem('listItemChecked')) : [];
+let todoArr = localStorage.getItem('listItem') ? JSON.parse(localStorage.getItem('listItem')) : [];
+let todoArrChecked = localStorage.getItem('listItemChecked') ? JSON.parse(localStorage.getItem('listItemChecked')) : [];
 
 // Функция рендера заметок из массивов в localStorage
 function itemRender() {
@@ -111,6 +112,16 @@ function addToCheckedList() {
     });
 }
 
+function resetCheckedList() {
+    resetBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        todoArrChecked = [];    
+        toLocalStorage();
+        itemRender();
+
+    });
+}
 
 // Инициализируем функции при загрузке страницы
 function init() {
@@ -119,6 +130,7 @@ function init() {
     addNewTodoItem();
     removeTodoItem();
     addToCheckedList();
+    resetCheckedList();
 }
 
 init();
