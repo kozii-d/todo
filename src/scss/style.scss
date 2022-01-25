@@ -1,3 +1,21 @@
-.todo-list-cheked p {
-    text-decoration: line-through;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    font-family: sans-serif;
 }
+
+body {
+    font-size: 10px;
+}
+
+
+// Blocks
+@import 'variables';
+@import './blocks/todo';
+@import './blocks/todo-wrap';
+@import './blocks/todo-titile';
+@import './blocks/todo-list';
+@import './blocks/todo-item';
+@import './blocks/todo-form';
+

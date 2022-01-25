@@ -8,37 +8,37 @@ var __webpack_exports__ = {};
 
 const addInput = document.querySelector('#input'),
       addBtn = document.querySelector('#btn'),
-      todoList = document.querySelector('.todo-list'),
-      todoListCheked = document.querySelector('.todo-list-cheked'),
-      todoItems = todoList.querySelectorAll('.todo-item'); // Создаём новый пустой массив для заметок. Если массив уже лежит в localStorage, то берём его оттуда
+      todoList = document.querySelector('#todo-list'),
+      todoListChecked = document.querySelector('#todo-list-checked'); // todoItems = todoList.querySelectorAll('.todo-item');
+// Создаём новый пустой массив для заметок. Если массив уже лежит в localStorage, то берём его оттуда
 
 const todoArr = localStorage.getItem('listItem') ? JSON.parse(localStorage.getItem('listItem')) : [];
-const todoArrCheked = localStorage.getItem('listItemCheked') ? JSON.parse(localStorage.getItem('listItemCheked')) : []; // Функция рендера заметок из массивов в localStorage
+const todoArrChecked = localStorage.getItem('listItemChecked') ? JSON.parse(localStorage.getItem('listItemChecked')) : []; // Функция рендера заметок из массивов в localStorage
 
 function itemRender() {
   const todoArrParsed = JSON.parse(localStorage.getItem('listItem'));
-  const todoArrChekedParsed = JSON.parse(localStorage.getItem('listItemCheked'));
+  const todoArrCheckedParsed = JSON.parse(localStorage.getItem('listItemChecked'));
   todoList.innerHTML = '';
-  todoListCheked.innerHTML = '';
+  todoListChecked.innerHTML = '';
   todoArrParsed.forEach((item, index) => {
     const elem = document.createElement('div');
     elem.classList.add('todo-item');
     elem.innerHTML = `
-            <p>${item}</p>
-            <button class="todo-del-btn">X</button>
+            <p class="todo-item__text">${item}</p>
+            <button class="todo-item__del-btn">&times;</button>
         `;
     elem.setAttribute('data-item-id', index);
     todoList.appendChild(elem);
   });
-  todoArrChekedParsed.forEach((item, index) => {
+  todoArrCheckedParsed.forEach((item, index) => {
     const elem = document.createElement('div');
-    elem.classList.add('todo-item', 'todo-item-cheked');
+    elem.classList.add('todo-item', 'todo-item_checked');
     elem.innerHTML = `
-            <p>${item}</p>
-            <button class="todo-del-btn todo-del-btn-cheked">X</button>
+            <p class="todo-item__text">${item}</p>
+            <button class="todo-item__del-btn">&times;</button>
         `;
-    elem.setAttribute('data-item-cheked-id', index);
-    todoListCheked.appendChild(elem);
+    elem.setAttribute('data-item-checked-id', index);
+    todoListChecked.appendChild(elem);
   });
 } // Функция отправляет текущий массив в localStorage
 
@@ -46,8 +46,8 @@ function itemRender() {
 function toLocalStorage() {
   const serializedTodos = JSON.stringify(todoArr);
   localStorage.setItem('listItem', serializedTodos);
-  const serializedTodosCheked = JSON.stringify(todoArrCheked);
-  localStorage.setItem('listItemCheked', serializedTodosCheked);
+  const serializedTodosChecked = JSON.stringify(todoArrChecked);
+  localStorage.setItem('listItemChecked', serializedTodosChecked);
 } // Функция добавляет в текущий массив значение из инпута, а так же отправляет его в localStorage и рендерит
 
 
@@ -75,37 +75,37 @@ function removeTodoItem() {
       itemRender();
     }
   });
-  todoListCheked.addEventListener('click', e => {
+  todoListChecked.addEventListener('click', e => {
     const target = e.target;
 
     if (target.tagName === 'BUTTON') {
-      todoArrCheked.splice(target.parentNode.getAttribute('data-item-cheked-id'), 1);
+      todoArrChecked.splice(target.parentNode.getAttribute('data-item-checked-id'), 1);
       toLocalStorage();
       itemRender();
     }
   });
-} // Функция переносит айтемы в состояние cheked и возвращает
+} // Функция переносит айтемы в состояние checked и возвращает
 
 
-function addToChekedList() {
+function addToCheckedList() {
   todoList.addEventListener('click', e => {
     e.preventDefault();
     const target = e.target;
 
-    if (target.tagName !== 'BUTTON') {
-      todoArrCheked[todoArrCheked.length] = target.textContent;
+    if (target.tagName === 'P') {
+      todoArrChecked[todoArrChecked.length] = target.textContent;
       todoArr.splice(target.parentNode.getAttribute('data-item-id'), 1);
       toLocalStorage();
       itemRender();
     }
   });
-  todoListCheked.addEventListener('click', e => {
+  todoListChecked.addEventListener('click', e => {
     e.preventDefault();
     const target = e.target;
 
     if (target.tagName !== 'BUTTON') {
       todoArr[todoArr.length] = target.textContent;
-      todoArrCheked.splice(target.parentNode.getAttribute('data-item-id'), 1);
+      todoArrChecked.splice(target.parentNode.getAttribute('data-item-id'), 1);
       toLocalStorage();
       itemRender();
     }
@@ -118,7 +118,7 @@ function init() {
   itemRender();
   addNewTodoItem();
   removeTodoItem();
-  addToChekedList();
+  addToCheckedList();
 }
 
 init();

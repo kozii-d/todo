@@ -1,3 +1,111 @@
-.todo-list-cheked p {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  font-size: 10px;
+}
+
+.todo {
+  display: flex;
+  justify-content: center;
+}
+
+.todo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.todo-title {
+  font-size: 3rem;
+  text-align: center;
+  text-transform: uppercase;
+  color: #2f4552;
+}
+
+.todo-list {
+  width: 100%;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 7px;
+  background-color: rgba(145, 191, 204, 0.2);
+}
+.todo-item:hover {
+  background-color: rgba(145, 191, 204, 0.5);
+}
+.todo-item__text {
+  font-size: 1.2rem;
+  color: #48808f;
+  width: 400px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.todo-item__del-btn {
+  font-size: 1.7rem;
+  font-weight: 700;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  color: #48808f;
+  cursor: pointer;
+}
+.todo-item_checked p {
   text-decoration: line-through;
+}
+
+.todo-form {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 15px;
+}
+.todo-form__field {
+  position: relative;
+  width: 100%;
+}
+.todo-form__input {
+  font-size: 1.5rem;
+  height: 50px;
+  width: 100%;
+  padding-left: 5px;
+  padding-right: 55px;
+  border-radius: 5px;
+  border: 2px solid #2f4552;
+  color: #48808f;
+  outline: none;
+}
+.todo-form__input::placeholder {
+  color: #91bfcc;
+}
+.todo-form__add-btn {
+  font-size: 2.5rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 50px;
+  width: 50px;
+  border-radius: 0 5px 5px 0;
+  border: none;
+  background-color: #2f4552;
+  color: #fff;
+}
+.todo-form__add-btn:hover {
+  background-color: #426072;
 }
