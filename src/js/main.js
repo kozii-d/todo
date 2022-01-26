@@ -5,7 +5,9 @@ const addInput = document.querySelector('#input'),
     todoList = document.querySelector('#todo-list'),
     todoListChecked = document.querySelector('#todo-list-checked'),
     resetBtn = document.querySelector('#reset-btn'),
-    textItem = document.querySelector('.todo-item__text');
+    textItem = document.querySelector('.todo-item__text'), 
+    line = document.querySelector('.todo-line');
+
 
 // Создаём новый пустой массив для заметок. Если массив уже лежит в localStorage, то берём его оттуда
 let todoArr = localStorage.getItem('listItem') ? JSON.parse(localStorage.getItem('listItem')) : [];
@@ -40,6 +42,13 @@ function itemRender() {
         elem.setAttribute('data-item-checked-id', index);
         todoListChecked.appendChild(elem);
     });
+
+    // Показывает и скрывает линию между списками по условию
+    if (todoArr.length === 0 || todoArrChecked.length === 0) {
+        line.style.display = 'none';
+    } else {
+        line.style.display = '';
+    }
 }
 
 // Функция отправляет текущий массив в localStorage

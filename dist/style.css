@@ -46,6 +46,7 @@ body {
   padding-right: 15px;
   margin-bottom: 7px;
   background-color: rgba(145, 191, 204, 0.2);
+  border-radius: 5px;
 }
 .todo-item:hover {
   background-color: rgba(145, 191, 204, 0.5);
@@ -60,18 +61,17 @@ body {
 .todo-item__del-btn {
   font-size: 1.7rem;
   font-weight: 700;
-  width: 40px;
+  min-width: 40px;
   height: 40px;
   background-color: transparent;
   border: none;
   color: #48808f;
   padding: 0;
   cursor: pointer;
+  border-left: 1px solid rgba(72, 128, 143, 0.2);
 }
 .todo-item__correct-btn {
-  font-size: 1.7rem;
-  font-weight: 700;
-  width: 40px;
+  min-width: 40px;
   height: 40px;
   background-color: transparent;
   background-image: url("img/icon/pencil.svg");
@@ -178,4 +178,12 @@ body {
   padding: 0;
   border: none;
   cursor: pointer;
+}
+
+.todo-line {
+  width: 50%;
+  height: 1px;
+  background-color: rgba(72, 128, 143, 0.2);
+  margin-top: 8px;
+  margin-bottom: 15px;
 }
