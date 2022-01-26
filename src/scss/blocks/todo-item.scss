@@ -16,7 +16,7 @@
     &__text {
         font-size: 1.2rem;
         color: $blue;
-        width: 90%;
+        width: 100%;
         overflow: hidden;
         cursor: pointer;
     }
@@ -27,6 +27,23 @@
         width: 40px;
         height: 40px;
         background-color: transparent;
+        border: none;
+        color: $blue;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    &__correct-btn {
+        font-size: 1.7rem;
+        font-weight: 700;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        background-image: url('img/icon/pencil.svg');
+        background-position: center;
+        background-size: 50%;
+        background-repeat: no-repeat;
+        padding: 0;
         border: none;
         color: $blue;
         cursor: pointer;

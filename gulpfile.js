@@ -63,6 +63,12 @@ function buildJS() {
     .on("end", browsersync.reload);
 }
 
+function copyImg() {
+    return src('./src/img/**/*')
+    .pipe(dest(dist + '/img'))
+    .pipe(browsersync.stream());
+}
+
 function watchFiles () {
     browsersync.init({
         server: {
@@ -122,4 +128,4 @@ function cleanDist() {
 }
 
 exports.prod = series(cleanDist, copyHtml, parallel(prodScss, prodJS));
-exports.default = parallel(watchFiles, parallel(copyHtml, buildScss, buildJS));
+exports.default = parallel(watchFiles, parallel(copyHtml, buildScss, buildJS, copyImg));

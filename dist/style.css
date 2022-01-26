@@ -53,7 +53,7 @@ body {
 .todo-item__text {
   font-size: 1.2rem;
   color: #48808f;
-  width: 90%;
+  width: 100%;
   overflow: hidden;
   cursor: pointer;
 }
@@ -63,6 +63,22 @@ body {
   width: 40px;
   height: 40px;
   background-color: transparent;
+  border: none;
+  color: #48808f;
+  padding: 0;
+  cursor: pointer;
+}
+.todo-item__correct-btn {
+  font-size: 1.7rem;
+  font-weight: 700;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  background-image: url("img/icon/pencil.svg");
+  background-position: center;
+  background-size: 50%;
+  background-repeat: no-repeat;
+  padding: 0;
   border: none;
   color: #48808f;
   cursor: pointer;
@@ -132,4 +148,34 @@ body {
 }
 .todo-btn-reset:hover {
   background-color: #426072;
+}
+
+.todo-correct-form {
+  width: 100%;
+  display: flex;
+}
+.todo-correct-form__input {
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #7fb1be;
+  margin: 0;
+  padding: 0;
+}
+.todo-correct-form__btn {
+  font-size: 1.7rem;
+  font-weight: 700;
+  width: 40px;
+  height: 40px;
+  color: #48808f;
+  background-color: transparent;
+  background-image: url("img/icon/check.svg");
+  background-position: center;
+  background-size: 45%;
+  background-repeat: no-repeat;
+  padding: 0;
+  border: none;
+  cursor: pointer;
 }
